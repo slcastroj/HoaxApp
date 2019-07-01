@@ -24,5 +24,10 @@ namespace Aplicacion.Views
         {
             InitializeComponent();
         }
+
+        private void BtnBack_Click(Object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

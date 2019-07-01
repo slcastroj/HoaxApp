@@ -41,5 +41,10 @@ namespace Aplicacion.Views
             NavigationService.Navigate(new GestionInspeccion());
 
         }
+
+        private void BtnBack_Click(Object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

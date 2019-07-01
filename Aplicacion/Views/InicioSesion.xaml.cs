@@ -1,17 +1,12 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Usuario = Aplicacion.Models.Usuario;
 
 namespace Aplicacion.Views
 {
@@ -20,14 +15,64 @@ namespace Aplicacion.Views
     /// </summary>
     public partial class InicioSesion : Page
     {
+        public RestClient Client { get; }
         public InicioSesion()
         {
             InitializeComponent();
+            Client = new RestClient(UrlUtils.BaseUrl);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Validar usuario
+            var rut = txtRut.Text;
+            var clave = txtContrasena.Password;
+
+            // Validaciones
+            {
+                if(String.IsNullOrWhiteSpace(rut))
+                {
+                    MessageBox.Show("Rut requerido");
+                    return;
+                }
+
+                if (String.IsNullOrWhiteSpace(clave))
+                {
+                    MessageBox.Show("Clave requerida");
+                    return;
+                }
+            }
+
+            var rq = new RestRequest($"usuario/{rut}", Method.GET);
+            var rs = Client.Execute<Usuario.GetSingle>(rq);
+
+            if (!rs.IsSuccessful)
+            {
+                if (rs.StatusCode == HttpStatusCode.NotFound)
+                {
+                    MessageBox.Show("Rut no válido");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show($"Error {rs.StatusCode}");
+                    return;
+                }
+            }
+
+            var u = rs.Data;
+
+            if(u.IdTipo != 2)
+            {
+                MessageBox.Show("Usuario no administrador");
+                return;
+            }
+
+            if(txtContrasena.Password != u.Clave)
+            {
+                MessageBox.Show("Contraseña incorrecta");
+                return;
+            }
+
             NavigationService.Navigate(new MenuPrincipal());
         }
     }
