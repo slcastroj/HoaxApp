@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\EstadoSolicitud.cs" />
+    <Compile Include="Models\Inspeccion.cs" />
+    <Compile Include="Models\Solicitud.cs" />
     <Compile Include="Models\TipoUsuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="UrlUtils.cs" />

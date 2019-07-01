@@ -10,20 +10,37 @@
 
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="146" Margin="10,10,0,0" VerticalAlignment="Top" Width="780">
-            <TabItem Header="Búsqueda" VerticalAlignment="Top">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Agregar" VerticalAlignment="Top">
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="Agregar" HorizontalAlignment="Left" Margin="684,72,0,0" VerticalAlignment="Top" Width="80" Height="26" Click="Button_Click"/>
+                    <Label Content="Solicitud" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Monto" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Fecha visita" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TxtPostSolicitud" HorizontalAlignment="Left" Height="26" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="TxtPostMonto" HorizontalAlignment="Left" Height="26" Margin="86,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <DatePicker x:Name="PckPostFecha" HorizontalAlignment="Left" Height="26" Margin="86,72,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Observaciones" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TxtPostObservaciones" HorizontalAlignment="Left" Height="88" Margin="322,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                </Grid>
             </TabItem>
-            <TabItem Header="Agregar">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Modificar" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Modificar" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="64" Margin="0">
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="Modificar" HorizontalAlignment="Left" Margin="684,72,0,0" VerticalAlignment="Top" Width="80" Height="26"/>
+                    <Label Content="Monto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Fecha visita" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TxtPutMonto" HorizontalAlignment="Left" Height="26" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <DatePicker x:Name="PckPutFecha" HorizontalAlignment="Left" Height="26" Margin="86,41,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Observaciones" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TxtPutObservaciones" HorizontalAlignment="Left" Height="88" Margin="322,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Eliminar" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="Eliminar" HorizontalAlignment="Left" Margin="684,72,0,0" VerticalAlignment="Top" Width="80" Height="26" Click="Button_Click_2"/>
+                </Grid>
             </TabItem>
         </TabControl>
-        <DataGrid HorizontalAlignment="Left" Height="265" Margin="10,175,0,0" VerticalAlignment="Top" Width="780"/>
+        <DataGrid SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False" x:Name="GridInspeccion" HorizontalAlignment="Left" Height="265" Margin="10,175,0,0" VerticalAlignment="Top" Width="780"/>
         <Button x:Name="BtnBack" Content="Atrás" HorizontalAlignment="Left" Margin="715,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnBack_Click"/>
     </Grid>
 </Page>

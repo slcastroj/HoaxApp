@@ -32,7 +32,14 @@ namespace Aplicacion.Views
             var rq = new RestRequest("usuario", Method.GET);
             var rs = Client.Execute<List<Usuario.Get>>(rq);
 
-            GridUsuario.ItemsSource = rs.Data;
+            if (!rs.IsSuccessful)
+            {
+                MessageBox.Show("No se pudieron cargar los datos");
+            }
+            else
+            {
+                GridUsuario.ItemsSource = rs.Data;
+            }
         }
 
         private void Button_Click(System.Object sender, System.Windows.RoutedEventArgs e)
