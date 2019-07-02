@@ -1,41 +1,30 @@
 ﻿using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Solicitud = Aplicacion.Models.Solicitud;
-using Inspeccion = Aplicacion.Models.Inspeccion;
+using Servicio = Aplicacion.Models.Servicio;
 
 namespace Aplicacion.Views
 {
     /// <summary>
     /// Lógica de interacción para GestionUsuario.xaml
     /// </summary>
-    public partial class GestionInspeccion : Page
+    public partial class GestionServicio : Page
     {
         public RestClient Client { get; }
-        public GestionInspeccion(String idsolicitud = null)
+        public GestionServicio()
         {
             InitializeComponent();
             Client = new RestClient(UrlUtils.BaseUrl);
             UpdateGrid();
-            TxtPostSolicitud.Text = idsolicitud;
         }
 
         public void UpdateGrid()
         {
-            var rq = new RestRequest("inspeccion", Method.GET);
-            var rs = Client.Execute<List<Inspeccion.Get>>(rq);
+            var rq = new RestRequest("servicio", Method.GET);
+            var rs = Client.Execute<List<Servicio.Get>>(rq);
 
             if (!rs.IsSuccessful)
             {
@@ -43,7 +32,7 @@ namespace Aplicacion.Views
             }
             else
             {
-                GridInspeccion.ItemsSource = rs.Data;
+                GridServicio.ItemsSource = rs.Data;
             }
         }
 
@@ -54,45 +43,43 @@ namespace Aplicacion.Views
 
         private void Button_Click(Object sender, RoutedEventArgs e)
         {
-            // Validaciones
-            var idsolicitud = TxtPostSolicitud.Text;
-            var monto = TxtPostMonto.Text;
-            var montoint = -1;
-            var fecha = PckPostFecha.SelectedDate;
+            var nombre = TxtPostNombre.Text;
+            var descripcion = TxtPostDescripcion.Text;
+            var costo = TxtPostCosto.Text;
+            var costoint = -1;
             {
-                if (String.IsNullOrWhiteSpace(idsolicitud))
+                if(String.IsNullOrWhiteSpace(nombre))
                 {
-                    MessageBox.Show("Ingrese solicitud");
+                    MessageBox.Show("Ingrese nombre");
                     return;
                 }
 
-                if (String.IsNullOrWhiteSpace(monto))
+                if (String.IsNullOrWhiteSpace(descripcion))
                 {
-                    MessageBox.Show("Ingrese monto");
+                    MessageBox.Show("Ingrese descripcion");
                     return;
                 }
 
-                if (!Int32.TryParse(monto, out montoint) || montoint < 0)
+                if (String.IsNullOrWhiteSpace(costo))
+                {
+                    MessageBox.Show("Ingrese costo");
+                    return;
+                }
+
+                if (!Int32.TryParse(costo, out costoint) || costoint < 0)
                 {
                     MessageBox.Show("Monto debe ser un número positivo");
                     return;
                 }
-
-                if(fecha is null)
-                {
-                    MessageBox.Show("Ingrese fecha");
-                    return;
-                }
             }
 
-            var rq = new RestRequest("inspeccion", Method.POST)
+            var rq = new RestRequest("servicio", Method.POST)
                 .AddJsonBody(new
-            {
-                fecha_visita = fecha,
-                observaciones = TxtPostObservaciones.Text,
-                monto,
-                id_solicitud = idsolicitud
-            });
+                {
+                    nombre,
+                    descripcion,
+                    costo
+                });
 
             var rs = Client.Execute(rq);
             if (rs.IsSuccessful)
@@ -109,46 +96,38 @@ namespace Aplicacion.Views
         private void Button_Click_1(Object sender, RoutedEventArgs e)
         {
             // Validaciones
-            var inspeccion = GridInspeccion.SelectedItem as Inspeccion.Get;
-            var monto = TxtPutMonto.Text;
-            var montoint = 0;
-            var fecha = PckPutFecha.SelectedDate;
-            var observaciones = TxtPutObservaciones.Text;
+            var servicio = GridServicio.SelectedItem as Servicio.Get;
+            var descripcion = TxtPutDescripcion.Text;
+            var costo = TxtPutCosto.Text;
             {
-                if(inspeccion is null)
+                if (servicio is null)
                 {
                     MessageBox.Show("Seleccione una fila");
                     return;
                 }
 
-                if(String.IsNullOrWhiteSpace(monto) && fecha is null && String.IsNullOrWhiteSpace(observaciones))
+                if (String.IsNullOrWhiteSpace(descripcion) && String.IsNullOrWhiteSpace(costo))
                 {
                     MessageBox.Show("Ingrese algún campo a modificar");
                     return;
                 }
 
-                if (String.IsNullOrWhiteSpace(monto))
+                if (String.IsNullOrWhiteSpace(costo))
                 {
-                    montoint = inspeccion.Monto;
+                    costo = servicio.Costo.ToString();
                 }
 
-                if (fecha is null)
+                if (String.IsNullOrWhiteSpace(descripcion))
                 {
-                    fecha = inspeccion.Fecha_visita;
-                }
-
-                if(String.IsNullOrWhiteSpace(observaciones))
-                {
-                    observaciones = inspeccion.Observaciones;
+                    descripcion = servicio.Descripcion;
                 }
             }
 
-            var rq = new RestRequest($"inspeccion/{inspeccion.Id_inspeccion}", Method.PUT)
+            var rq = new RestRequest($"servicio/{servicio.Id_servicio}", Method.PUT)
                 .AddJsonBody(new
                 {
-                    fecha_visita = fecha,
-                    observaciones,
-                    monto = montoint,
+                    costo,
+                    descripcion
                 });
 
             var rs = Client.Execute(rq);
@@ -165,7 +144,7 @@ namespace Aplicacion.Views
 
         private void Button_Click_2(Object sender, RoutedEventArgs e)
         {
-            var s = GridInspeccion.SelectedItem as Inspeccion.Get;
+            var s = GridServicio.SelectedItem as Servicio.Get;
             // Validaciones
             {
                 if (s is null)
@@ -175,7 +154,7 @@ namespace Aplicacion.Views
                 }
             }
 
-            var rq = new RestRequest($"inspeccion/{s.Id_inspeccion}", Method.DELETE);
+            var rq = new RestRequest($"servicio/{s.Id_servicio}", Method.DELETE);
             var rs = Client.Execute(rq);
 
             if (rs.IsSuccessful)

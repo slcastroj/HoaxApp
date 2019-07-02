@@ -5,16 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Aplicacion.Views"
       mc:Ignorable="d" 
-      Height="250" Width="300"
+      Height="330" Width="300"
       Title="MenuPrincipal">
 
     <Grid>
         <Button x:Name="btnUsuario" Grid.Row="0" Margin="40 10" Click="btnUsuario_Click">Usuarios</Button>
         <Button x:Name="btnSolicitud" Grid.Row="1" Margin="40 10" Click="btnSolicitud_Click">Solicitudes</Button>
         <Button x:Name="btnInspeccion" Grid.Row="2" Margin="40 10" Click="btnInspeccion_Click">Inspecciones</Button>
-        <Button x:Name="btnBack" Grid.Row="4" Margin="60 10" Content="Cerrar sesión" Click="BtnBack_Click"/>
+        <Button x:Name="btnServicio" Grid.Row="3" Margin="40 10" Click="BtnServicio_Click" >Servicios</Button>
+        <Button x:Name="btnEquipo" Grid.Row="4" Margin="40 10" Click="BtnEquipo_Click" >Equipos</Button>
+        <Button x:Name="btnBack" Grid.Row="5" Margin="60 10" Content="Cerrar sesión" Click="BtnBack_Click"/>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>

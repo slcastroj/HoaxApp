@@ -135,5 +135,20 @@ namespace Aplicacion.Views
                 MessageBox.Show($"Error {rs.StatusCode}");
             }
         }
+
+        private void Button_Click_2(Object sender, RoutedEventArgs e)
+        {
+            var s = GridSolicitud.SelectedItem as Solicitud.Get;
+            // Validaciones
+            {
+                if (s is null)
+                {
+                    MessageBox.Show("Seleccione una fila");
+                    return;
+                }
+            }
+
+            NavigationService.Navigate(new GestionInspeccion(s.Id_solicitud.ToString()));
+        }
     }
 }

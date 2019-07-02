@@ -58,8 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\EstadoSolicitud.cs" />
     <Compile Include="Models\Inspeccion.cs" />
+    <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Solicitud.cs" />
     <Compile Include="Models\TipoUsuario.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -67,8 +69,14 @@
     <Compile Include="Views\GestionInspeccion.xaml.cs">
       <DependentUpon>GestionInspeccion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GestionServicio.xaml.cs">
+      <DependentUpon>GestionServicio.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GestionSolicitud.xaml.cs">
       <DependentUpon>GestionSolicitud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GestionEquipo.xaml.cs">
+      <DependentUpon>GestionEquipo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GestionUsuario.xaml.cs">
       <DependentUpon>GestionUsuario.xaml</DependentUpon>
@@ -95,7 +103,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\GestionServicio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\GestionSolicitud.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GestionEquipo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
