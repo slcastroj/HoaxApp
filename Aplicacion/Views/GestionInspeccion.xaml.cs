@@ -111,7 +111,6 @@ namespace Aplicacion.Views
             // Validaciones
             var inspeccion = GridInspeccion.SelectedItem as Inspeccion.Get;
             var monto = TxtPutMonto.Text;
-            var montoint = 0;
             var fecha = PckPutFecha.SelectedDate;
             var observaciones = TxtPutObservaciones.Text;
             {
@@ -129,7 +128,7 @@ namespace Aplicacion.Views
 
                 if (String.IsNullOrWhiteSpace(monto))
                 {
-                    montoint = inspeccion.Monto;
+                    monto = inspeccion.Monto.ToString();
                 }
 
                 if (fecha is null)
@@ -148,7 +147,7 @@ namespace Aplicacion.Views
                 {
                     fecha_visita = fecha,
                     observaciones,
-                    monto = montoint,
+                    monto = monto,
                 });
 
             var rs = Client.Execute(rq);

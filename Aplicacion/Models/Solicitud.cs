@@ -8,7 +8,7 @@ namespace Aplicacion.Models.Solicitud
         public String Direccion { get; set; }
         public DateTime Creacion { get; set; }
         public DateTime? Fin { get; set; }
-        public String Usuario { get; set; }
+        public String Rut { get; set; }
         public Int32 Id_estado { get; set; }
         public Int32 Id_servicio { get; set; }
         public Int32 Id_equipo { get; set; }
